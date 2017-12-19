@@ -1,0 +1,56 @@
+<div class="science-app" data-app-name="mapman-enrichment-app">
+<form class="form-horizontal" method="get" name="enrichment_analysis" role="form">
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Species/version</label>
+    <div class="col-sm-10">
+	<p class="help-block">Arabidopsis thaliana Araport11 Loci</p>        
+    </div>
+  </div>
+
+
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">MapMan bin Version</label>
+    <div class="col-sm-10">
+	<label class="radio-inline">
+  		<input type="radio" name="version" value="mapman4">MapMan 4
+	</label>
+	<label class="radio-inline">
+  		<input type="radio" name="version" value="mapman3.6"> MapMan 3.6
+	</label>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Background Genes</label>
+    <div class="col-sm-10">
+	<textarea class="form-control" name="backgroundGenes" rows="3"></textarea>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Genes of Interest</label>
+    <div class="col-sm-10">
+        <textarea class="form-control" name="genesOfInterest" rows="3"></textarea>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+  </div>
+        <div class="control-group">
+                <div class="controls" id="mapman_enrichment-messages"></div>
+        </div>
+        <div class="control-group">
+                <div class="controls" id="mapman_enrichment-table"></div>
+        </div>
+
+</form>
+</div>
+
+
+
