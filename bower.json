@@ -1,5 +1,9 @@
 {
   "name": "test-app",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "underscore": "^1.8.3",
+    "datatables.net": "^1.10.16",
+    "datatables.net-dt": "^3.2.2"
+  }
 }
