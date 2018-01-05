@@ -10,8 +10,7 @@
   var templates = {
 		  resultTable: _.template('<table class="table"><thead><tr><th>Bin code</th><th>Genes of Interest</th><th>Background Genes</th><th>Fisher</th><th>BH Fisher</th></tr></thead><tbody><% _.each(bins, function(r) { %><tr><td><%= r.NODE %></td><td><%= r.GOI %></td><td><%= r.BG %></td><td><%= r.FISHER %></td><td><%= r.BHFISHER %></td></tr><% }) %></tbody></table>'),
 		  failGOIList: _.template('<ul><% _.each(undetectedGOI, function(r) { %><li><%= r %></li><% }) %></ul>'),
-		  failBGList: _.template('<ul><% _.each(undetectedBG, function(r) { %><li><%= r %></li><% }) %></ul>'),
-		  errors: _.template('<ul><% _.each(function(r) { %><li><%= r %></li><% }) %></ul>')
+		  failBGList: _.template('<ul><% _.each(undetectedBG, function(r) { %><li><%= r %></li><% }) %></ul>')
   };
 
   var form = $('form[name=enrichment_analysis]', appContext);
@@ -28,7 +27,6 @@
 
     var bg = this.backgroundGenes.value.split(/\n/);
     var goi = this.genesOfInterest.value.split(/\n/);
-
 
     var bgList=[];
     var goiList=[];
@@ -110,63 +108,24 @@
 			}
 			
 			if (result.results.undetectedGOI.length > 0) {
-				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in the "Genes of Interest" could not be found - please verfiy that they are valid gene identifiers' + templates.failGOIList(result.results));
+				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in "Genes of Interest" could not be found - please verify the gene identifiers' + templates.failGOIList(result.results));
 			}
 			
 			if (result.results.undetectedBG.length > 0) {
-				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in the "Background genes" could not be found - please verfiy that they are valid gene identifiers' + templates.failBGList(result.results));
+				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in "Background genes" could not be found - please verify the gene identifiers' + templates.failBGList(result.results));
 			}
         }else{
-			$('#mapman_enrichment-messages').append('<div class="alert alert-danger">No valid genes could be found for analysis - please verify the AGI codes<div>');
+			$('#mapman_enrichment-messages').append('<div class="alert alert-danger">No valid "Genes of Interest" could be found for analysis - please verify the gene identifiers<div>');
 
 			if (result.results.undetectedGOI.length > 0) {
-				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in the "Genes of Interest" could not be found - please verfiy that they are valid gene identifiers' + templates.failGOIList(result.results));
+				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in "Genes of Interest" could not be found - please verify the gene identifiers' + templates.failGOIList(result.results));
 			}
 			
 			if (result.results.undetectedBG.length > 0) {
-				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in the "Background genes" could not be found - please verfiy that they are valid gene identifiers' + templates.failBGList(result.results));
+				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in "Background genes" could not be found - please verify the gene identifiers' + templates.failBGList(result.results));
 			}
         }
     }
-
-//   var query ={
-//     locus:texts
-//   };  
-//    if (! hasError) {
-//      //$('.results').html('<pre><code>' + JSON.stringify(query, null, 2) + '</code></pre>');
-//
-//      Agave.api.adama.getStatus({}, function(resp) {
-//        if (resp.obj.status === 'success') {
-//          Agave.api.adama.search(
-//            {'namespace': 'mapman', 'service': 'genelookupflat_v0.1', 'queryParams': query},
-//            showResults
-//          );
-//        } else {
-//          // ADAMA is not available, show a message
-//          $('.messages', this).append('<div class="alert alert-danger">The Query Service is currently unavailable. Please try again later.</div>');
-//        }
-//      });
-//    }
-
-//    var showResults = function( json ) {
-//      //console.log(JSON.stringify(json, null, 2));
-//      // show error message for invalid object
-//      if ( ! ( json && json.obj ) ) {
-//        $( '.results', appContext ).html( '<div class="alert alert-danger">Invalid response!</div>' );
-//       return;
-//      }
-//      
-//
-//      if (json.obj.result.failedgenes){
-//        //console.log('failed genes');
-//        $('.messages', appContext).append('<div class="alert alert-danger">One or more entries did not return a result - please verfiy that they are valid AGI codes'+templates.failTable(json.obj.result)+'</div>');
-//      }
-//
-//      if (json.obj.result.genes.length > 0){
-//        $( '.results', appContext ).html( templates.resultTable( json.obj.result ) );
-//        $( '.results table', appContext ).dataTable();
-//      }
-//    };
 
   });
 
