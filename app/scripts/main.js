@@ -63,7 +63,8 @@
 
    var queryParams ={
      'bg_list':bgList.join(','),
-     'goi_list':goiList.join(',')
+     'goi_list':goiList.join(','),
+     'mapman_version':this.version.value
 	 //'bg_list': 'AT1G12345,AT1G12346',
      //'goi_list':'AT1G12345,AT1G12346'
    }; 
@@ -100,20 +101,32 @@
 
     function showResults ( result ) {
         console.log(JSON.stringify(result, null, 2));
+        
+        if (result.status === 'success'){
+        
+			if (result.results.bins.length > 0) {
+				$('#mapman_enrichment-table').html(templates.resultTable(result.results));
+				$('#mapman_enrichment-table .table').dataTable();
+			}
+			
+			if (result.results.undetectedGOI.length > 0) {
+				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in the "Genes of Interest" could not be found - please verfiy that they are valid gene identifiers' + templates.failGOIList(result.results));
+			}
+			
+			if (result.results.undetectedBG.length > 0) {
+				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in the "Background genes" could not be found - please verfiy that they are valid gene identifiers' + templates.failBGList(result.results));
+			}
+        }else{
+			$('#mapman_enrichment-messages').append('<div class="alert alert-danger">No valid genes could be found for analysis - please verify the AGI codes<div>');
 
-		if (result.results.bins.length > 0) {
-			$('#mapman_enrichment-table').html(templates.resultTable(result.results));
-			$('#mapman_enrichment-table .table').dataTable();
-		}
-		
-		if (result.results.undetectedGOI.length > 0) {
-			$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in the "Genes of Interest" could not be found - please verfiy that they are valid gene identifiers' + templates.failGOIList(result.results));
-		}
-		
-		if (result.results.undetectedBG.length > 0) {
-			$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in the "Background genes" could not be found - please verfiy that they are valid gene identifiers' + templates.failBGList(result.results));
-		}
-
+			if (result.results.undetectedGOI.length > 0) {
+				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in the "Genes of Interest" could not be found - please verfiy that they are valid gene identifiers' + templates.failGOIList(result.results));
+			}
+			
+			if (result.results.undetectedBG.length > 0) {
+				$('#mapman_enrichment-messages').append('<div class="alert alert-danger">One or more entries in the "Background genes" could not be found - please verfiy that they are valid gene identifiers' + templates.failBGList(result.results));
+			}
+        }
     }
 
 //   var query ={
